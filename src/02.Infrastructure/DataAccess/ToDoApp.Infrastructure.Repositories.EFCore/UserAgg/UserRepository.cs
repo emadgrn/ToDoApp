@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ToDoApp.Domain.Core.UserAgg.Contracts;
 using ToDoApp.Domain.Core.UserAgg.DTOs;
 using ToDoApp.Domain.Core.UserAgg.Entities;
 using ToDoApp.Infrastructure.DB.SqlServer.EFCore.DbContext;

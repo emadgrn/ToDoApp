@@ -17,6 +17,8 @@ namespace ToDoApp.Infrastructure.DB.SqlServer.EFCore.Configurations
 
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
 
+            builder.Property(c => c.BriefDescription).IsRequired(false);
+
             builder.HasData(
                 new Category { Id = 1, Name = "شخصی", ImageUrl = "/images/personal.png" },
                 new Category { Id = 2, Name = "کاری", ImageUrl = "/images/work.png" },

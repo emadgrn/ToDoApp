@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DB\ToDoApp.Infrastructure.DB.SqlServer.EFCore\ToDoApp.Infrastructure.DB.SqlServer.EFCore.csproj" />
+  </ItemGroup>
+
 </Project>
