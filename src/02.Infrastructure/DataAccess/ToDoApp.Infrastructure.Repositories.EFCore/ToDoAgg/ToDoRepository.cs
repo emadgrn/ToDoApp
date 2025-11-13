@@ -28,7 +28,7 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
             {
                 Title = model.Title,
                 Description = model.Description,
-                Status = model.Status,
+                IsDone = false,
                 DueDate = model.DueDate,
                 CategoryId = model.CategoryId,
                 UserId = model.UserId
@@ -41,13 +41,13 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
         {
             return _context.Todos
                 .Where(td=>td.UserId==userId)
-                .Select(td => new GetToDoDto()
+                .Select(td => new GetToDoDto
                 {
                     Id = td.Id,
                     Title = td.Title,
                     Description = td.Description,
                     DueDate = td.DueDate,
-                    Status = td.Status,
+                    IsDone = td.IsDone,
                     Category = new GetCategoryDto
                     {
                         Id = td.Category.Id,
@@ -55,7 +55,8 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
                         ImageUrl = td.Category.ImageUrl!,
                         BriefDescription = td.Category.BriefDescription!
                     }
-                }).ToList();
+                })
+                .ToList();
         }
 
 
@@ -69,7 +70,7 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
                     Title = td.Title,
                     Description = td.Description,
                     DueDate = td.DueDate,
-                    Status = td.Status,
+                    IsDone = td.IsDone,
                     Category = new GetCategoryDto
                     {
                         Id = td.Category.Id,
@@ -89,7 +90,7 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
                 if (toDo is not null)
                 {
                     toDo.DueDate = model.DueDate;
-                    toDo.Status = model.Status;
+                    toDo.IsDone = model.IsDone;
                     toDo.Title = model.Title;
                     toDo.Description = model.Description;
                     toDo.CategoryId=model.Category.Id;
@@ -118,28 +119,14 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
         {
             var rowAffected=_context.Todos.Where(x => x.Id == toDoId)
                 .ExecuteUpdate(setters => setters
-                    .SetProperty(x => x.Status, StatusEnum.Done));
+                    .SetProperty(x => x.IsDone, true));
         }
 
-        public void SetPending(int toDoId)
-        {
-            var rowAffected = _context.Todos.Where(x => x.Id == toDoId)
-                .ExecuteUpdate(setters => setters
-                    .SetProperty(x => x.Status, StatusEnum.Pending));
-        }
-
-        public void SetOverdue(int toDoId)
-        {
-            var rowAffected = _context.Todos.Where(x => x.Id == toDoId)
-                .ExecuteUpdate(setters => setters
-                    .SetProperty(x => x.Status, StatusEnum.Overdue));
-        }
-
-        public StatusEnum? GetStatusById(int toDoId)
+        public bool? GetStatusById(int toDoId)
         {
             return _context.Todos
                 .Where(td => td.Id == toDoId)
-                .Select(td => td.Status)
+                .Select(td => td.IsDone)
                 .FirstOrDefault();
         }
     }

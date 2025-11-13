@@ -15,8 +15,6 @@ namespace ToDoApp.Domain.Core.ToDoAgg.Contracts
         Result<GetToDoDto> GetToDoById(int id);
         List<GetToDoDto> GetAllToDosByUserId(int userId);
         void MarkAsDone(int toDoId);
-        void MarkAsPending(int toDoId);
-        void MarkAsOverDue(int toDoId);
-        StatusEnum? GetStatus(int toDoId);
+        bool? GetStatus(int toDoId);
     }
 }

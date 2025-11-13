@@ -45,7 +45,7 @@ namespace ToDoApp.Domain.Services.ToDo
             return toDoRepo.GetAllToDosByUserId(userId);
         }
 
-        public StatusEnum? GetStatus(int toDoId)
+        public bool? GetStatus(int toDoId)
         {
             return toDoRepo.GetStatusById(toDoId);
         }
@@ -55,14 +55,5 @@ namespace ToDoApp.Domain.Services.ToDo
              toDoRepo.SetDone(toDoId);
         }
 
-        public void MarkAsPending(int toDoId)
-        {
-             toDoRepo.SetPending(toDoId);
-        }
-
-        public void MarkAsOverDue(int toDoId)
-        {
-             toDoRepo.SetOverdue(toDoId);
-        }
     }
 }

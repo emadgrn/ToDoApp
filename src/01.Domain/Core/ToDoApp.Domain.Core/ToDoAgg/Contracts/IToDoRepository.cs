@@ -13,11 +13,10 @@ namespace ToDoApp.Domain.Core.ToDoAgg.Contracts
         void Create(CreateToDoDto model);
         List<GetToDoDto> GetAllToDosByUserId(int userId);
         GetToDoDto? GetById(int toDoId);
-        public StatusEnum? GetStatusById(int toDoId);
+        public bool? GetStatusById(int toDoId);
         bool Update(int toDoId, GetToDoDto model);
         bool DeleteById(int toDoId);
         void SetDone(int toDoId);
-        void SetPending(int toDoId);
-        void SetOverdue(int toDoId);
+
     }
 }

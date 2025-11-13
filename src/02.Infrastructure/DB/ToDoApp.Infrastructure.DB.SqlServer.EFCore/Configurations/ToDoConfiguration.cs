@@ -20,9 +20,6 @@ namespace ToDoApp.Infrastructure.DB.SqlServer.EFCore.Configurations
 
             builder.Property(c => c.Description).IsRequired(false);
 
-            builder.Property(u => u.Status).IsRequired()
-                .HasConversion<string>()
-                .HasDefaultValue(StatusEnum.Pending);
 
             builder.HasOne(t => t.User)
                 .WithMany(u => u.ToDos)
