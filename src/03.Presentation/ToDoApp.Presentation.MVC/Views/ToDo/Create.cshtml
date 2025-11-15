@@ -1,0 +1,35 @@
+﻿@model ToDoApp.Domain.Core.ToDoAgg.DTOs.CreateToDoDto
+
+<form class="row g-3 "
+      asp-controller="ToDo"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data">
+    
+    <div class="col-md-6">
+        <label asp-for="Title" class="form-label">عنوان</label>
+        <input asp-for="Title" type="text" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Description" class="form-label">توصیف (اختیاری)</label>
+        <input asp-for="Description" type="text" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="DueDate" class="form-label">موعد</label>
+        <input asp-for="DueDate" type="date" class="form-control" >
+    </div>
+    <div class="col-md-6">
+        <label asp-for="CategoryId" class="form-label">دسته‌بندی</label>
+        <select asp-for="CategoryId" class="form-select">
+            <option value="">انتخاب دسته‌بندی</option>
+            @foreach (var c in @ViewBag.Categories)
+            {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </div>
+</form>
