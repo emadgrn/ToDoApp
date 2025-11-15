@@ -1,0 +1,61 @@
+﻿@model RegisterViewModel
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="card-login shadow-lg p-4 rounded-4" style="width: 400px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" style="color:#111827;">تودو برای شما</h2>
+            <p class="text-muted">همین حالا به ما بپیوندید!</p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center py-2">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-action="Register" asp-controller="Account" method="post" class="text-end" dir="rtl">
+            <div class="mb-3">
+                <label asp-for="Firstname" class="form-label">نام:</label>
+                <input asp-for="Firstname" class="form-control" placeholder="نام کوچک خود را وارد کنید" />
+                <span asp-validation-for="Firstname" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Lastname" class="form-label">نام خانوادگی:</label>
+                <input asp-for="Lastname" class="form-control" placeholder="نام خانوادگی خود را وارد کنید" />
+                <span asp-validation-for="Lastname" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">نام کاربری:</label>
+                <input asp-for="Username" class="form-control" placeholder="نام کاربری خود را وارد کنید" />
+                <span asp-validation-for="Username" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">رمز عبور:</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور خود را وارد کنید" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">شماره موبایل (اختیاری):</label>
+                <input asp-for="Username" class="form-control" placeholder="شماره موبایل خود را وارد کنید" />
+                <span asp-validation-for="Username" class="text-danger small"></span>
+            </div>
+
+
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-login fw-bold text-white">ثبت نام</button>
+            </div>
+
+            <div class="text-center mt-2">
+                <span>حساب کاربری دارید؟</span>
+                <a class="fw-bold text-decoration-none" style="color: #1f47e8;" asp-controller="Account" asp-action="Login">وارد شوید</a>
+            </div>
+        </form>
+    </div>
+</div>
