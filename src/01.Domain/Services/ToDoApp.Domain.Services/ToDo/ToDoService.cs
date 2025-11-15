@@ -8,10 +8,11 @@ using ToDoApp.Domain.Core.ToDoAgg.Contracts;
 using ToDoApp.Domain.Core.ToDoAgg.DTOs;
 using ToDoApp.Domain.Core.ToDoAgg.Enums;
 using ToDoApp.Domain.Core.UserAgg.DTOs;
+using ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg;
 
 namespace ToDoApp.Domain.Services.ToDo
 {
-    public class ToDoService(IToDoRepository toDoRepo):IToDoService
+    public class ToDoService(IToDoRepository toDoRepo) : IToDoService
     {
         public Result<bool> CreateToDo(CreateToDoDto model)
         {
@@ -40,9 +41,10 @@ namespace ToDoApp.Domain.Services.ToDo
             }
         }
 
-        public List<GetToDoDto> GetAllToDosByUserId(int userId)
+
+        public List<GetToDoDto> GetUserToDos(int userId, string searchTerm,string sortOrder )
         {
-            return toDoRepo.GetAllToDosByUserId(userId);
+            return toDoRepo.GetDynamicToDosOfUser(userId, searchTerm, sortOrder);
         }
 
         public bool? GetStatus(int toDoId)
@@ -52,8 +54,17 @@ namespace ToDoApp.Domain.Services.ToDo
 
         public void MarkAsDone(int toDoId)
         {
-             toDoRepo.SetDone(toDoId);
+            toDoRepo.SetDone(toDoId);
         }
 
+        public void MarkAsNotDone(int toDoId)
+        {
+            toDoRepo.SetNotDone(toDoId);
+        }
+
+        public void Delete(int toDoId)
+        { 
+            toDoRepo.DeleteById(toDoId);
+        }
     }
 }

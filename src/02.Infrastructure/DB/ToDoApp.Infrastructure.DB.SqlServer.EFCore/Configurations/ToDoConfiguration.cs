@@ -30,6 +30,12 @@ namespace ToDoApp.Infrastructure.DB.SqlServer.EFCore.Configurations
                 .WithMany()
                 .HasForeignKey(t => t.CategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.HasData(
+                new ToDo{Id = 1,Title = "پروژه معماری نرم افزار",IsDone = true,CategoryId = 3,UserId = 1,DueDate = new DateTime(2025, 11, 20, 0, 0, 0) },
+                new ToDo { Id = 2, Title = "پروژه رایانش ابری", IsDone = false, CategoryId = 3, UserId = 1, DueDate = new DateTime(2025, 11, 25, 0, 0, 0) }
+            );
         }
     }
 }

@@ -20,6 +20,5 @@ namespace ToDoApp.Domain.Core.ToDoAgg.DTOs
         public DateTime DueDate { get; set; }
 
         public GetCategoryDto Category { get; set; }
-        public GetUserSummaryDto? User { get; set; }
     }
 }

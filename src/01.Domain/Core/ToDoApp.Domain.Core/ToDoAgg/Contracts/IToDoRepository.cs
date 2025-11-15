@@ -12,11 +12,13 @@ namespace ToDoApp.Domain.Core.ToDoAgg.Contracts
     {
         void Create(CreateToDoDto model);
         List<GetToDoDto> GetAllToDosByUserId(int userId);
+        List<GetToDoDto> GetDynamicToDosOfUser(int userId, string searchTerm, string sortOrder);
         GetToDoDto? GetById(int toDoId);
-        public bool? GetStatusById(int toDoId);
+        bool? GetStatusById(int toDoId);
         bool Update(int toDoId, GetToDoDto model);
         bool DeleteById(int toDoId);
         void SetDone(int toDoId);
+        void SetNotDone(int toDoId);
 
     }
 }

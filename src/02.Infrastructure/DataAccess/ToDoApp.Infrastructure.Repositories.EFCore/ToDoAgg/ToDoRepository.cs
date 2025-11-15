@@ -59,6 +59,60 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
                 .ToList();
         }
 
+        public List<GetToDoDto> GetDynamicToDosOfUser(int userId, string searchTerm, string sortOrder )
+        {
+            var result = _context.Todos.Where(t => t.UserId == userId)
+                .Select(x => new GetToDoDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    IsDone = x.IsDone,
+                    DueDate = x.DueDate,
+                    Description = x.Description,
+                    Category = new GetCategoryDto
+                    {
+                        Id = x.Category.Id,
+                        Name = x.Category.Name,
+                        ImageUrl = x.Category.ImageUrl!,
+                        BriefDescription = x.Category.BriefDescription!
+                    }
+                });
+
+            if (searchTerm is not null)
+            {
+                result = result.Where(x => x.Title.Contains(searchTerm) || x.Category.Name.Contains(searchTerm));
+            }
+
+            switch (sortOrder)
+            {
+                case "title-asc":
+                    result = result.OrderBy(x => x.Title);
+                    break;
+                case "title-desc":
+                    result = result.OrderByDescending(x => x.Title);
+                    break;
+                case "due-date-asc":
+                    result = result.OrderBy(x => x.DueDate);
+                    break;
+                case "due-date-desc":
+                    result = result.OrderByDescending(x => x.DueDate);
+                    break;
+                case "done":
+                    result = result.Where(x => x.IsDone==true);
+                    break;
+                case "not-done":
+                    result = result.Where(x => x.IsDone==false);
+                    break;
+                case "_":
+                default:
+                    result = result;
+                    break;
+            }
+
+            return result.ToList();
+
+        }
+
 
         public GetToDoDto? GetById(int toDoId)
         {
@@ -120,6 +174,13 @@ namespace ToDoApp.Infrastructure.Repositories.EFCore.ToDoAgg
             var rowAffected=_context.Todos.Where(x => x.Id == toDoId)
                 .ExecuteUpdate(setters => setters
                     .SetProperty(x => x.IsDone, true));
+        }
+
+        public void SetNotDone(int toDoId)
+        {
+            var rowAffected = _context.Todos.Where(x => x.Id == toDoId)
+                .ExecuteUpdate(setters => setters
+                    .SetProperty(x => x.IsDone, false));
         }
 
         public bool? GetStatusById(int toDoId)

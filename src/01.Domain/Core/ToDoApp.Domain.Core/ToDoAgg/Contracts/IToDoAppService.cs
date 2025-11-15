@@ -5,18 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Domain.Core._common.Entities;
 using ToDoApp.Domain.Core.ToDoAgg.DTOs;
-using ToDoApp.Domain.Core.ToDoAgg.Enums;
 
 namespace ToDoApp.Domain.Core.ToDoAgg.Contracts
 {
-    public interface IToDoService
+    public interface IToDoAppService
     {
         Result<bool> CreateToDo(CreateToDoDto model);
-        Result<GetToDoDto> GetToDoById(int id);
-        List<GetToDoDto> GetUserToDos(int userId, string searchTerm, string sortOrder);
+
+        Result<List<GetToDoDto>> GetUserTasks(int userId, string searchTerm, string sortOrder);
+        void DeleteToDo(int toDoId);
         void MarkAsDone(int toDoId);
         void MarkAsNotDone(int toDoId);
-        bool? GetStatus(int toDoId);
-        void Delete(int toDoId);
     }
 }
