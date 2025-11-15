@@ -1,0 +1,254 @@
+﻿@* @model List<ToDoApp.Domain.Core.ToDoAgg.DTOs.GetToDoDto> *@
+@* *@
+@* @{ *@
+@*     ViewData["Title"] = "لیست کارها"; *@
+@* } *@
+@* *@
+@* <div class="container mt-4"> *@
+@* *@
+@*     <h2 class="mb-4 text-center">کارهای من</h2> *@
+@* *@
+@*     <!-- Search + Sort --> *@
+@*     <form method="get" class="row g-3 mb-4"> *@
+@* *@
+@*         <div class="col-md-6"> *@
+@*             <input type="text" name="searchTerm"  *@
+@*                    class="form-control" placeholder="جستجو در عنوان یا دسته‌بندی..." /> *@
+@*         </div> *@
+@* *@
+@*         <div class="col-md-4"> *@
+@*             <select name="sortOrder" class="form-select"> *@
+@*                 <option value="">مرتب‌سازی (پیش‌فرض)</option> *@
+@*                 <option value="title-asc">عنوان ↑</option> *@
+@*                 <option value="title-desc">عنوان ↓</option> *@
+@*                 <option value="due-date-asc">تاریخ انجام ↑</option> *@
+@*                 <option value="due-date-desc">تاریخ انجام ↓</option> *@
+@*                 <option value="done">انجام شده</option> *@
+@*                 <option value="not-done">انجام نشده</option> *@
+@*             </select> *@
+@*         </div> *@
+@* *@
+@*         <div class="col-md-2"> *@
+@*             <button class="btn btn-primary w-100">اعمال</button> *@
+@*         </div> *@
+@* *@
+@*     </form> *@
+@* *@
+@*     <!-- In case of no tasks --> *@
+@*     @if (Model == null || !Model.Any()) *@
+@*     { *@
+@*         <div class="alert alert-warning text-center"> *@
+@*             هیچ کاری برای نمایش وجود ندارد. *@
+@*         </div> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <table class="table table-hover table-bordered text-center align-middle"> *@
+@* *@
+@*             <thead class="table-dark"> *@
+@*                 <tr> *@
+@*                     <th>عنوان</th> *@
+@*                     <th>توضیحات</th> *@
+@*                     <th>دسته‌بندی</th> *@
+@*                     <th>وضعیت</th> *@
+@*                     <th>موعد</th> *@
+@*                 </tr> *@
+@*             </thead> *@
+@* *@
+@*             <tbody> *@
+@*                 @foreach (var item in Model) *@
+@*                 { *@
+@*                     <tr> *@
+@* *@
+@*                         <td>@item.Title</td> *@
+@* *@
+@*                         <td>@(item.Description ?? "-")</td> *@
+@* *@
+@*                         <td> *@
+@*                             <span class="badge bg-secondary text-dark px-3 py-2"> *@
+@*                                 @item.Category.Name *@
+@*                             </span> *@
+@*                         </td> *@
+@* *@
+@*                         <td> *@
+@*                             @if (item.IsDone) *@
+@*                             { *@
+@*                                 <span class="badge bg-success px-3 py-2">انجام شده</span> *@
+@*                             } *@
+@*                             else if(!item.IsDone&&item.DueDate>DateTime.Now) *@
+@*                             { *@
+@*                                 <span class="badge bg-primary px-3 py-2">در انتظار</span> *@
+@*                             } *@
+@*                             else *@
+@*                             { *@
+@*                                 <span class="badge bg-danger px-3 py-2">تاریخ گذشته</span> *@
+@*                             } *@
+@*                         </td> *@
+@* *@
+@*                         <td>@item.DueDate.ToString("yyyy/MM/dd")</td> *@
+@* *@
+@*                     </tr> *@
+@*                 } *@
+@*             </tbody> *@
+@*         </table> *@
+@*     } *@
+@* *@
+@* </div> *@
+
+
+@model List<ToDoApp.Domain.Core.ToDoAgg.DTOs.GetToDoDto>
+
+@{
+    ViewData["Title"] = "لیست کارها";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">کارهای من</h2>
+
+        <!-- Create New -->
+        <a href="/ToDo/Create" class="btn btn-success">
+            + ایجاد کار جدید
+        </a>
+    </div>
+
+    <!-- Search + Sort -->
+    <form method="get" class="row g-3 mb-4">
+
+        <div class="col-md-6">
+            <input type="text" name="searchTerm"
+                   class="form-control" placeholder="جستجو در عنوان یا دسته‌بندی..." />
+        </div>
+
+        <div class="col-md-4">
+            <select name="sortOrder" class="form-select">
+                <option value="">مرتب‌سازی (پیش‌فرض)</option>
+                <option value="title-asc">عنوان ↓(A to Z)</option>
+                <option value="title-desc">عنوان ↑(Z to A)</option>
+                <option value="due-date-desc">تاریخ موعد ↑</option>
+                <option value="due-date-asc">تاریخ موعد ↓</option>
+                <option value="done">انجام شده</option>
+                <option value="not-done">انجام نشده</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">اعمال</button>
+        </div>
+
+    </form>
+
+    <!-- In case of no tasks -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            هیچ کاری برای نمایش وجود ندارد.
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered text-center align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>عنوان</th>
+                    <th>توضیحات</th>
+                    <th>دسته‌بندی</th>
+                    <th>وضعیت</th>
+                    <th>موعد</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.Title</td>
+
+                        <td>@(item.Description ?? "-")</td>
+
+                        <td class="d-flex align-items-center gap-2 justify-content-center">
+
+                            <!-- Category Image -->
+                            <img src="@item.Category.ImageUrl"
+                                 style="width:30px;height:30px;border-radius:5px;object-fit:cover" />
+
+                            <!-- Category Name -->
+                            <span class="badge bg-secondary text-dark px-3 py-2">
+                                @item.Category.Name
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (item.IsDone)
+                            {
+                                <span class="badge bg-success px-3 py-2">انجام شده</span>
+                            }
+                            else if (!item.IsDone && item.DueDate > DateTime.Now)
+                            {
+                                <span class="badge bg-primary px-3 py-2">در انتظار</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger px-3 py-2">تاریخ گذشته</span>
+                            }
+                        </td>
+
+                        <td>@item.DueDate.ToString("yyyy/MM/dd")</td>
+
+                        <!-- Actions -->
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+
+                                <!-- Toggle Status -->
+                                @if (!item.IsDone)
+                                {
+                                    @* <a href="/ToDo/MarkDone/@item.Id" *@
+                                    @*    class="btn btn-sm btn-success"> *@
+                                    @*     انجام شد *@
+                                    @* </a> *@
+
+                                    <form asp-controller="ToDo" asp-action="Done" asp-route-id="@item.Id" method="post" onsubmit="return confirm('آیا از انجام دادن این کار مطمئن هستید؟')">
+                                        <button type="submit" class="btn btn-sm btn-success fw-bold">
+                                            انجام شدن
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    @* <a href="/ToDo/MarkPending/@item.Id" *@
+                                    @*    class="btn btn-sm btn-warning"> *@
+                                    @*     بازگرداندن *@
+                                    @* </a> *@
+
+                                    <form asp-controller="ToDo" asp-action="NotDone" asp-route-id="@item.Id" method="post" onsubmit="return confirm('آیا از بازگرداندن این کار از حالت انجام شده مطمئن هستید؟')">
+                                        <button type="submit" class="btn btn-sm btn-warning fw-bold">
+                                             بازگرداندن
+                                        </button>
+                                    </form>
+                                }
+
+                                <!-- Delete -->
+                                @* <a href="/ToDo/Delete/@item.Id" *@
+                                @*    onclick="return confirm('آیا مطمئن هستید؟');" *@
+                                @*    class="btn btn-sm btn-danger"> *@
+                                @*     حذف *@
+                                @* </a> *@
+                                <form asp-controller="ToDo" asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('آیا از حذف این کار مطمئن هستید؟')">
+                                    <button type="submit" class="btn btn-sm btn-danger fw-bold">
+                                        <i class="bi bi-trash-fill"></i> حذف
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
