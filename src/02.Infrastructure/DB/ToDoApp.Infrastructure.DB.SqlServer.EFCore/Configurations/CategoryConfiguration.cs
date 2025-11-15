@@ -20,10 +20,10 @@ namespace ToDoApp.Infrastructure.DB.SqlServer.EFCore.Configurations
             builder.Property(c => c.BriefDescription).IsRequired(false);
 
             builder.HasData(
-                new Category { Id = 1, Name = "شخصی", ImageUrl = "/images/personal.png" },
-                new Category { Id = 2, Name = "کاری", ImageUrl = "/images/work.png" },
-                new Category { Id = 3, Name = "دانشگاهی", ImageUrl = "/images/edu.png" },
-                new Category { Id = 4, Name = "سایر", ImageUrl = "/images/other.png" }
+                new Category { Id = 1, Name = "شخصی", ImageUrl = "Files\\Category\\personal.png" },
+                new Category { Id = 2, Name = "کاری", ImageUrl = "Files\\Category\\work.png" },
+                new Category { Id = 3, Name = "دانشگاهی", ImageUrl = "Files\\Category\\edu.png" },
+                new Category { Id = 4, Name = "سایر", ImageUrl = "Files\\Category\\other.png" }
             );
         }
     }
