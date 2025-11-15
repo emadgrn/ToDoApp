@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="card-login shadow-lg p-4 rounded-4" style="width: 400px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" style="color:#111827;">ورود به تودو</h2>
+            <p class="text-muted">به خانه دوم‌تان خوش آمدید!</p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center py-2">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-action="Login" asp-controller="Account" method="post" class="text-end" dir="rtl">
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">نام کاربری:</label>
+                <input asp-for="Username" class="form-control" placeholder="نام کاربری خود را وارد کنید" />
+                <span asp-validation-for="Username" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">رمز عبور:</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور خود را وارد کنید" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-login fw-bold text-white">ورود</button>
+            </div>
+
+            <div class="text-center mt-3">
+                <a class="text-decoration-none" style="color: #36479c;">رمز عبور خود را فراموش کرده‌ام</a>
+            </div>
+
+            <div class="text-center mt-2">
+                <span>حساب کاربری ندارید؟</span>
+                <a class="fw-bold text-decoration-none" style="color: #1f47e8;" asp-controller="Account" asp-action="Register">ثبت نام کنید</a>
+            </div>
+        </form>
+    </div>
+</div>
