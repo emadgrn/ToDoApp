@@ -1,102 +1,4 @@
-﻿@* @model List<ToDoApp.Domain.Core.ToDoAgg.DTOs.GetToDoDto> *@
-@* *@
-@* @{ *@
-@*     ViewData["Title"] = "لیست کارها"; *@
-@* } *@
-@* *@
-@* <div class="container mt-4"> *@
-@* *@
-@*     <h2 class="mb-4 text-center">کارهای من</h2> *@
-@* *@
-@*     <!-- Search + Sort --> *@
-@*     <form method="get" class="row g-3 mb-4"> *@
-@* *@
-@*         <div class="col-md-6"> *@
-@*             <input type="text" name="searchTerm"  *@
-@*                    class="form-control" placeholder="جستجو در عنوان یا دسته‌بندی..." /> *@
-@*         </div> *@
-@* *@
-@*         <div class="col-md-4"> *@
-@*             <select name="sortOrder" class="form-select"> *@
-@*                 <option value="">مرتب‌سازی (پیش‌فرض)</option> *@
-@*                 <option value="title-asc">عنوان ↑</option> *@
-@*                 <option value="title-desc">عنوان ↓</option> *@
-@*                 <option value="due-date-asc">تاریخ انجام ↑</option> *@
-@*                 <option value="due-date-desc">تاریخ انجام ↓</option> *@
-@*                 <option value="done">انجام شده</option> *@
-@*                 <option value="not-done">انجام نشده</option> *@
-@*             </select> *@
-@*         </div> *@
-@* *@
-@*         <div class="col-md-2"> *@
-@*             <button class="btn btn-primary w-100">اعمال</button> *@
-@*         </div> *@
-@* *@
-@*     </form> *@
-@* *@
-@*     <!-- In case of no tasks --> *@
-@*     @if (Model == null || !Model.Any()) *@
-@*     { *@
-@*         <div class="alert alert-warning text-center"> *@
-@*             هیچ کاری برای نمایش وجود ندارد. *@
-@*         </div> *@
-@*     } *@
-@*     else *@
-@*     { *@
-@*         <table class="table table-hover table-bordered text-center align-middle"> *@
-@* *@
-@*             <thead class="table-dark"> *@
-@*                 <tr> *@
-@*                     <th>عنوان</th> *@
-@*                     <th>توضیحات</th> *@
-@*                     <th>دسته‌بندی</th> *@
-@*                     <th>وضعیت</th> *@
-@*                     <th>موعد</th> *@
-@*                 </tr> *@
-@*             </thead> *@
-@* *@
-@*             <tbody> *@
-@*                 @foreach (var item in Model) *@
-@*                 { *@
-@*                     <tr> *@
-@* *@
-@*                         <td>@item.Title</td> *@
-@* *@
-@*                         <td>@(item.Description ?? "-")</td> *@
-@* *@
-@*                         <td> *@
-@*                             <span class="badge bg-secondary text-dark px-3 py-2"> *@
-@*                                 @item.Category.Name *@
-@*                             </span> *@
-@*                         </td> *@
-@* *@
-@*                         <td> *@
-@*                             @if (item.IsDone) *@
-@*                             { *@
-@*                                 <span class="badge bg-success px-3 py-2">انجام شده</span> *@
-@*                             } *@
-@*                             else if(!item.IsDone&&item.DueDate>DateTime.Now) *@
-@*                             { *@
-@*                                 <span class="badge bg-primary px-3 py-2">در انتظار</span> *@
-@*                             } *@
-@*                             else *@
-@*                             { *@
-@*                                 <span class="badge bg-danger px-3 py-2">تاریخ گذشته</span> *@
-@*                             } *@
-@*                         </td> *@
-@* *@
-@*                         <td>@item.DueDate.ToString("yyyy/MM/dd")</td> *@
-@* *@
-@*                     </tr> *@
-@*                 } *@
-@*             </tbody> *@
-@*         </table> *@
-@*     } *@
-@* *@
-@* </div> *@
-
-
-@model List<ToDoApp.Domain.Core.ToDoAgg.DTOs.GetToDoDto>
+﻿@model List<ToDoApp.Domain.Core.ToDoAgg.DTOs.GetToDoDto>
 
 @{
     ViewData["Title"] = "لیست کارها";
@@ -108,7 +10,7 @@
         <h2 class="mb-0">کارهای من</h2>
 
         <!-- Create New -->
-        <a href="/ToDo/Create" class="btn btn-success">
+        <a asp-controller="ToDo" asp-action="Create" class="btn btn-success">
             + ایجاد کار جدید
         </a>
     </div>

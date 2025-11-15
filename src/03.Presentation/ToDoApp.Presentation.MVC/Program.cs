@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using ToDoApp.Domain.ApplicationServices.ToDo;
+using ToDoApp.Domain.ApplicationServices.User;
 using ToDoApp.Domain.Core.CategoryAgg.Contracts;
 using ToDoApp.Domain.Core.ToDoAgg.Contracts;
 using ToDoApp.Domain.Core.UserAgg.Contracts;
+using ToDoApp.Domain.Services.Category;
+using ToDoApp.Domain.Services.ToDo;
 using ToDoApp.Domain.Services.User;
 using ToDoApp.Infrastructure.DB.SqlServer.EFCore.DbContext;
 using ToDoApp.Infrastructure.Repositories.EFCore.CategoryAgg;
@@ -23,11 +27,17 @@ namespace ToDoApp.Presentation.MVC
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserAppService,UserAppService>();
+
 
             builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
+            builder.Services.AddScoped<IToDoService, ToDoService>();
+            builder.Services.AddScoped<IToDoAppService, ToDoAppService>();
 
             var app = builder.Build();
 

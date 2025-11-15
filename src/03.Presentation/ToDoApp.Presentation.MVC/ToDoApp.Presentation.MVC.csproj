@@ -12,9 +12,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\01.Domain\Services\ToDoApp.Domain.ApplicationServices\ToDoApp.Domain.ApplicationServices.csproj" />
     <ProjectReference Include="..\..\01.Domain\Services\ToDoApp.Domain.Services\ToDoApp.Domain.Services.csproj" />
     <ProjectReference Include="..\..\02.Infrastructure\DataAccess\ToDoApp.Infrastructure.Repositories.EFCore\ToDoApp.Infrastructure.Repositories.EFCore.csproj" />
     <ProjectReference Include="..\..\02.Infrastructure\DB\ToDoApp.Infrastructure.DB.SqlServer.EFCore\ToDoApp.Infrastructure.DB.SqlServer.EFCore.csproj" />

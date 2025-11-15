@@ -9,6 +9,7 @@
     <div class="col-md-6">
         <label asp-for="Title" class="form-label">عنوان</label>
         <input asp-for="Title" type="text" class="form-control">
+        <span asp-validation-for="Title" class="text-danger small"></span>
     </div>
     <div class="col-md-6">
         <label asp-for="Description" class="form-label">توصیف (اختیاری)</label>
@@ -17,6 +18,7 @@
     <div class="col-md-6">
         <label asp-for="DueDate" class="form-label">موعد</label>
         <input asp-for="DueDate" type="date" class="form-control" >
+        <span asp-validation-for="DueDate" class="text-danger small"></span>
     </div>
     <div class="col-md-6">
         <label asp-for="CategoryId" class="form-label">دسته‌بندی</label>
@@ -27,6 +29,7 @@
                 <option value="@c.Id">@c.Name</option>
             }
         </select>
+        <span asp-validation-for="CategoryId" class="text-danger small"></span>
     </div>
 
     <div class="col-12">
